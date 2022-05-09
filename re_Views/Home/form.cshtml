@@ -1,0 +1,30 @@
+﻿@model radio.connetion.Table
+@using (Html.BeginForm("form", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(n => n.id);
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+
+        @Html.TextBoxFor(n => n.name, new { @class = "form-control", @Required = "Required" })
+    </div>
+    <div class="mb-3">
+        male @Html.RadioButtonFor(n => n.gender, "male")
+        female @Html.RadioButtonFor(n => n.gender, "female")
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+
+        @Html.TextBoxFor(n => n.Date, new { @class = "form-control", @type = "date", @Required = "Required" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="image" required="required" id="image" />
+
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary h">Submit</button>
+
+}

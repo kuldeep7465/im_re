@@ -1,0 +1,22 @@
+﻿@model List<radio.connetion.Table>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>id</th>
+            <th>Image</th>
+            <th>name</th>
+            <th>Gender</th>
+            <th>Date</th>
+
+        </tr>
+        @foreach(var i in Model)
+            {
+    <tr>
+        <td>@i.id</td>
+        <td><img src='@i.image' height='100' width='100' /></td>
+        <td>@i.name</td>
+        <td>@i.gender</td>
+        <td>@i.Date</td>
+
+    </tr>
+            }
+    </table>

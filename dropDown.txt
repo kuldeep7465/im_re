@@ -1,0 +1,51 @@
+using dropDown.connetion;
+using dropDown.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace dropDown.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            dropDownEntities db = new dropDownEntities();
+            var res = db.Tables.ToList();
+            return View(res);
+        }
+        public ActionResult form()
+        {
+            var list = new List<string>() { "india", "pakistan", "America" };
+            ViewBag.list = list;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult form(Class1 obj)
+        {
+            dropDownEntities db = new dropDownEntities();
+            Table emp = new Table();
+            emp.id = obj.id;
+            emp.name = obj.name;
+            emp.city = obj.city;
+            db.Tables.Add(emp);
+            db.SaveChanges();
+            return RedirectToAction("index");
+        }
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿@model dropDown.connetion.Table
+@using (Html.BeginForm("form", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(n => n.id);
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+
+        @Html.TextBoxFor(n => n.name, new { @class = "form-control", @Required = "Required" })
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">city</label>
+        @Html.DropDownListFor(n => n.city,new SelectList(ViewBag.list),"select your List", htmlAttributes: new { @class = "form-control", @Required = "Required" })
+    </div>
+
+
+    <button type="submit" class="btn btn-primary h">Submit</button>
+
+}

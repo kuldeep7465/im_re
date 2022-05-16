@@ -1,0 +1,83 @@
+using session.connetion;
+using session.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+namespace session.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+        
+            sessionEntities db = new sessionEntities();
+            var temp = Convert.ToInt32(Session["id"].ToString());
+            var res = db.mytables.Where(x => x.id == temp).ToList();
+
+
+            return View(res);
+        }
+        public ActionResult login()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public ActionResult login(Class1 emp)
+        
+        {
+            sessionEntities db = new sessionEntities();
+            var log = db.logins.Where(m => m.email == emp.email).FirstOrDefault();
+            if(log==null)
+            {
+                TempData["email"] = "Email Not found";
+            }
+            else
+            {
+                if(log.email==emp.email && log.password == emp.password)
+                {
+
+                    Session["id"] = log.id;
+                    //return View("form", Session["id"]);
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    TempData["pass"] = "Password Invalid";
+                }
+            }
+            return View();
+        }
+        public ActionResult form()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult form(Class2 emp)
+        {
+            sessionEntities db = new sessionEntities();
+            mytable obj = new mytable();
+            obj.id = emp.id;
+            obj.name = emp.name;
+            obj.email = emp.email;
+            obj.selary = emp.selary;
+             obj.log_id = Convert.ToInt32(Session["id"].ToString());
+            //obj.log_id = (int)Session["id"];
+            if (emp.id == 0)
+            {
+                 db.mytables.Add(obj);
+                 db.SaveChanges();
+                return RedirectToAction("index");
+            }
+            else
+            {
+                 db.Entry(obj).State =System.Data.Entity.EntityState.Modified;
+                 db.SaveChanges();
+                return RedirectToAction("index");
+            }
+            //return View();
+        }
+    }
+}

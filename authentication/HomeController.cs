@@ -64,5 +64,17 @@ namespace loginLogOutWith.Controllers
             }
             return View();
         }
+          [Authorize]
+        public ActionResult logout()
+        {
+
+            HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme
+                );
+
+                return RedirectToAction("login");
+
+           
+        }
     }
 }

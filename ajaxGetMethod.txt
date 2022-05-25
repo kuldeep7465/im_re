@@ -1,0 +1,52 @@
+@model List<jzaxproject.connetion.Mytable>
+
+<table class="table table-bordered table-hover" id="YourTableId">
+    <thead>
+
+    <tr>
+        <th>id</th>
+        <th>name</th>
+
+    </tr>
+
+    </thead>
+    <tbody>
+
+    </tbody>
+    @*@foreach (var i in Model)
+    {
+
+        <tr>
+            <td>@i.Id</td>
+            <td>@i.Name</td>
+
+            <td><a href="@Url.Action("delete","Home",new{i.Id})" class="btn btn-warning">DELETE</a></td>
+            <td><a href="@Url.Action("edit","Home",new{i.Id})" class="btn btn-primary">EDIT</a></td>
+        </tr>
+    }*@
+
+</table>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Home/Index",
+            method: "GET",
+            success: function (data) {
+                var items = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>"
+                        + "<td class='yourTableTh'>" + item.Id + "</td>"
+                        + "<td class='yourTableTh'>" + item.Name + "</td>"
+                        + "<td class='yourTableTh'>" + item.Email + "</td>"
+                        + "</tr>";
+                    $('#YourTableId tbody').append(rows);
+                });
+            }
+           
+        })
+       
+    })
+</script>
